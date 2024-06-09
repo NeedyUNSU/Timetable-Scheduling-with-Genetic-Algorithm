@@ -21,13 +21,11 @@
         }
     }
 
-    public class Schedule
+    public class ScheduleOne
     {
-        private static readonly Lesson[] test = { new Lesson("", "", 1), new Lesson("", "", 2) };
-
         public List<string> ClassName { get; set; } = new List<string>() { "Klasa 1", "Klasa 2", "Klasa 3", "Klasa 4" };
 
-        public Lesson[][] Monday { get; set; } = new Lesson[][] { test, test,test,test };
+        public Lesson[] Monday { get; set; } = new Lesson[] { };
 
     }
 
@@ -35,7 +33,7 @@
     {
         static void Main(string[] args)
         {
-            Schedule test = new Schedule();
+            ScheduleOne test = new ScheduleOne();
 
             Console.WriteLine(test.Monday[2][0]);
 
