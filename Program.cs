@@ -1,5 +1,21 @@
 ﻿namespace SI_DevSchedule
 {
+    public static class Glob
+    {
+        public static List<Lesson> DefultLessons = new List<Lesson>()
+        {
+            new Lesson("", "", 0, 0, 0, 1, false),
+            new Lesson("Matematyka", "Teacher 1", 1, 5, 2),
+            new Lesson("Polski", "Teacher 1", 2, 5, 2),
+            new Lesson("Biologia", "Teacher 1", 3, 1, 1),
+            new Lesson("Chemia", "Teacher 1", 4, 1, 1),
+            new Lesson("Angielski", "Teacher 1", 5, 3, 2),
+            new Lesson("Historia", "Teacher 1", 6, 1, 1),
+            new Lesson("Geografia", "Teacher 1", 7, 1, 1),
+            new Lesson("Wychowanie Fizyczne", "Teacher 1", 9, 2, 2),
+        };
+    }
+
     public class Lesson
     {
         public string? Title { get; set; }
@@ -38,12 +54,16 @@
         public List<Lesson> Thursday { get; set; } = new List<Lesson>();
         public List<Lesson> Friday { get; set; } = new List<Lesson>();
         
+        public void RandomiseDay()
+        {
 
+        }
     }
 
     public class Schedule
     {
         public List<ScheduleOne> Classes { get; set; }
+
 
 
     }
