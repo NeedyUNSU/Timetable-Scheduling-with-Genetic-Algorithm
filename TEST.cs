@@ -11,26 +11,83 @@ namespace SI_DevSchedule
     {
         public static List<LessonOne> Lessons = new List<LessonOne>()
     {
-        new LessonOne("", 100, 10),
-        new LessonOne("Matematyka", 5, 2),
-        new LessonOne("Polski", 5, 2),
-        new LessonOne("Biologia", 2, 1),
-        new LessonOne("Chemia", 2, 1),
-        new LessonOne("Angielski", 3, 1),
-        new LessonOne("Historia", 2, 1),
-        new LessonOne("Geografia", 2, 1),
-        new LessonOne("WF", 4, 2),
+        new LessonOne("", 100, 10),        // 0
+        new LessonOne("Matematyka", 5, 2), // 1
+        new LessonOne("Polski", 5, 2),     // 2
+        new LessonOne("Biologia", 2, 1),   // 3
+        new LessonOne("Chemia", 2, 1),     // 4 
+        new LessonOne("Angielski", 3, 1),  // 5
+        new LessonOne("Historia", 2, 1),   // 6
+        new LessonOne("Geografia", 2, 1),  // 7
+        new LessonOne("WF", 4, 2),         // 8
     };
-
+        // 
         public static int MaxDiffrence = 3;
 
         public static int LessonsInDay = 8;
         public static int WorkingDays = 5;
-        public static int DefaultTableCount = 15;
+        public static int DefaultTableCount = 1;
 
-        public static int PopulationSize = 50;
-        public static int Generations = 100;
-        public static double MutationRate = 0.1;
+        public static int PopulationSize = 1000;
+        public static int Generations = 10;
+        public static double MutationRate = 0.3;
+
+        public static bool DisplayInfo = false;
+
+        public static List<List<List<int>>> Limits = new List<List<List<int>>>()
+        {
+            new List<List<int>> {
+                new List<int>() { 0, 5, 7, 8 },
+                new List<int>() { 0, 3, 5, 6, 8 },
+                new List<int>() { 0, 1, 2, 3, 5, 6 },
+                new List<int>() { 0, 1, 4 },
+                new List<int>() { 0, 4 },
+                new List<int>() { 0 },
+                new List<int>() { 0 },
+                new List<int>() { 0 },
+            },
+            new List<List<int>> {
+                new List<int>() { 0, 8 },
+                new List<int>() { 0, 3 },
+                new List<int>() { 0, 3, 4 },
+                new List<int>() { 0, 4 },
+                new List<int>() { 0 },
+                new List<int>() { 0 },
+                new List<int>() { 0 },
+                new List<int>() { 0 },
+            },
+            new List<List<int>> {
+                new List<int>() { 0, 5, 7, 8 },
+                new List<int>() { 0, 6, 8 },
+                new List<int>() { 0, 2, 6, 8 },
+                new List<int>() { 0, 1, 2, 8 },
+                new List<int>() { 0, 1, 8 },
+                new List<int>() { 0, 8 },
+                new List<int>() { 0 },
+                new List<int>() { 0 },
+            },
+            new List<List<int>> {
+                new List<int>() { 0, 6, 7, 8 },
+                new List<int>() { 0, 1, 3, 5, 6, 7, 8 },
+                new List<int>() { 0, 1, 2 },
+                new List<int>() { 0, 2 },
+                new List<int>() { 0 },
+                new List<int>() { 0 },
+                new List<int>() { 0 },
+                new List<int>() { 0 },
+            },
+            new List<List<int>> {
+                new List<int>() { 0, 4, 5 },
+                new List<int>() { 0, 2, 3, 4, 5 },
+                new List<int>() { 0, 1, 2, 8 },
+                new List<int>() { 0, 7, 8 },
+                new List<int>() { 0, 7, 8 },
+                new List<int>() { 0 },
+                new List<int>() { 0 },
+                new List<int>() { 0 },
+            },
+        };
+
     }
 
     public class LessonOne
@@ -42,6 +99,14 @@ namespace SI_DevSchedule
         public int CountDay { get; set; }
         public int CountWeek { get; set; }
 
+        /// <summary>
+        /// Konstruktor klasy
+        /// </summary>
+        /// <param name="name"> Nazwa przedmiotu</param>
+        /// <param name="maxInWeek"> maksymalne wystąpienie w tygodniu </param>
+        /// <param name="maxInDay"> maksumalne wystąpienie w ciągu dnia</param>
+        /// <param name="countDay"> zliczanie ile w ciągu dnia</param>
+        /// <param name="countWeek"> zliczanie ile w ciągu tygodnia </param>
         public LessonOne(string name, int maxInWeek, int maxInDay, int countDay = 0, int countWeek = 0)
         {
             Name = name;
@@ -69,17 +134,76 @@ namespace SI_DevSchedule
         {
             Random rnd = new Random();
 
+            //List<int> less1 = new List<int>() { 0, 5, 7, 8 };
+            //List<int> less2 = new List<int>() { 0, 3, 5, 6, 8 };
+            //List<int> less3 = new List<int>() { 0, 1, 2, 3, 5, 6 };
+            //List<int> less4 = new List<int>() { 0, 1, 4 };
+            //List<int> less5 = new List<int>() { 0, 4 };
+            //List<int> less6 = new List<int>() { 0 };
+            //List<int> less7 = new List<int>() { 0 };
+            //List<int> less8 = new List<int>() { 0 };
+
+            //List<List<int>> day1 = new List<List<int>>() { less1, less2, less3, less4, less5, less6, less7, less8 };
+
+            //less1 = new List<int>() { 0, 8 };
+            //less2 = new List<int>() { 0, 3 };
+            //less3 = new List<int>() { 0, 3, 4 };
+            //less4 = new List<int>() { 0, 4 };
+            //less5 = new List<int>() { 0 };
+            //less6 = new List<int>() { 0 };
+            //less7 = new List<int>() { 0 };
+            //less8 = new List<int>() { 0 };
+
+            //List<List<int>> day2 = new List<List<int>>() { less1, less2, less3, less4, less5, less6, less7, less8 };
+
+            //less1 = new List<int>() { 0, 5, 7, 8 };
+            //less2 = new List<int>() { 0, 6, 8 };
+            //less3 = new List<int>() { 0, 2, 6, 8 };
+            //less4 = new List<int>() { 0, 1, 2, 8 };
+            //less5 = new List<int>() { 0, 1, 8 };
+            //less6 = new List<int>() { 0, 8 };
+            //less7 = new List<int>() { 0 };
+            //less8 = new List<int>() { 0 };
+
+            //List<List<int>> day3 = new List<List<int>>() { less1, less2, less3, less4, less5, less6, less7, less8 };
+
+            //less1 = new List<int>() { 0, 6, 7, 8 };
+            //less2 = new List<int>() { 0, 1, 3, 5, 6, 7, 8 };
+            //less3 = new List<int>() { 0, 1, 2 };
+            //less4 = new List<int>() { 0, 2 };
+            //less5 = new List<int>() { 0 };
+            //less6 = new List<int>() { 0 };
+            //less7 = new List<int>() { 0 };
+            //less8 = new List<int>() { 0 };
+
+            //List<List<int>> day4 = new List<List<int>>() { less1, less2, less3, less4, less5, less6, less7, less8 };
+
+            //less1 = new List<int>() { 0, 4, 5 };
+            //less2 = new List<int>() { 0, 2, 3, 4, 5 };
+            //less3 = new List<int>() { 0, 1, 2, 8 };
+            //less4 = new List<int>() { 0, 7, 8 };
+            //less5 = new List<int>() { 0, 7, 8 };
+            //less6 = new List<int>() { 0 };
+            //less7 = new List<int>() { 0 };
+            //less8 = new List<int>() { 0 };
+
+            //List<List<int>> day5 = new List<List<int>>() { less1, less2, less3, less4, less5, less6, less7, less8 };
+
+            //List<List<List<int>>> limits = new List<List<List<int>>>() { day1, day2, day3, day4, day5 };
+
             for (int i = 0; i < GlobalValues.LessonsInDay; i++)
                 for (int j = 0; j < GlobalValues.WorkingDays; j++)
                     for (int k = 0; k < GlobalValues.DefaultTableCount; k++)
-                        schedule[i, j, k] = rnd.Next(0, GlobalValues.Lessons.Count);
+                    {
+                        schedule[i, j, k] = GlobalValues.Limits[j][i][rnd.Next(0, GlobalValues.Limits[j][i].Count)];
+                    }
         }
 
         public void ShowSchedule()
         {
             for (int k = 0; k < GlobalValues.DefaultTableCount; k++)
             {
-                Console.WriteLine($"\n{Fitness[k]}\n");
+                Console.WriteLine($"\n{Fitness[k]/2}\n");
                 for (int i = 0; i < GlobalValues.LessonsInDay; i++)
                 {
                     for (int j = 0; j < GlobalValues.WorkingDays; j++)
@@ -92,11 +216,11 @@ namespace SI_DevSchedule
             }
         }
 
-        private void FitnessDay(int day, int table)
+        private void FitnessDay(int day, int table, bool show = false)
         {
             int second = -1;
-            
-            for (int i = GlobalValues.LessonsInDay - 1; i >= 1; i--)
+
+            for (int i = GlobalValues.LessonsInDay - 1; i > 1; i--)
             {
                 LessonsAll[schedule[i, day, table]].CountDay++;
                 if (schedule[i, day, table] != 0 && second == -1) second = i;
@@ -108,31 +232,31 @@ namespace SI_DevSchedule
             for (int i = 1; i < GlobalValues.LessonsInDay; i++)
             {
                 if (schedule[i, day, table] != 0 && first == -1) first = i;
-                
+
 
                 LessonsAll[schedule[i, day, table]].CountWeek += LessonsAll[schedule[i, day, table]].CountDay;
 
                 if (LessonsAll[schedule[i, day, table]].CountDay > LessonsAll[schedule[i, day, table]].MaxInDay)
                 {
                     Fitness[table] += (LessonsAll[schedule[i, day, table]].CountDay - LessonsAll[schedule[i, day, table]].MaxInDay) * 4;
-                    Console.WriteLine($"Table:{table} Day:{day} {LessonsAll[schedule[i, day, table]].Name} too many a day Points Added: {(LessonsAll[schedule[i, day, table]].CountDay - LessonsAll[schedule[i, day, table]].MaxInDay) * 4}");
+                    if (GlobalValues.DisplayInfo || show) Console.WriteLine($"Table:{table} Day:{day} {LessonsAll[schedule[i, day, table]].Name} too many a day Points Added: {(LessonsAll[schedule[i, day, table]].CountDay - LessonsAll[schedule[i, day, table]].MaxInDay) * 4}");
                 }
 
-                if(first != -1 && i <= second && schedule[i, day, table] == 0) holeBettwen++;
+                if (first != -1 && i < second && schedule[i, day, table] == 0) holeBettwen++;
 
                 LessonsAll[schedule[i, day, table]].CountDay = 0;
             }
 
             Fitness[table] += holeBettwen * 2;
-            if (holeBettwen != 0) Console.WriteLine($"Table:{table} Day:{day} Points for hole Added: {holeBettwen * 2}");
+            if (holeBettwen != 0) if (GlobalValues.DisplayInfo || show) Console.WriteLine($"Table:{table} Day:{day} Points for hole Added: {holeBettwen * 2}");
         }
 
-        private void FitnessWeek(int table)
+        private void FitnessWeek(int table, bool show = false)
         {
             for (int j = 0; j < GlobalValues.WorkingDays; j++)
             {
-                FitnessDay(j, table);
-                Console.WriteLine();
+                FitnessDay(j, table, show);
+                if (GlobalValues.DisplayInfo || show) Console.WriteLine();
             }
 
             for (int i = 1; i < LessonsAll.Count; i++)
@@ -140,18 +264,18 @@ namespace SI_DevSchedule
                 if (LessonsAll[i].CountWeek != LessonsAll[i].MaxInWeek)
                 {
                     Fitness[table] += Math.Abs(LessonsAll[i].CountWeek - LessonsAll[i].MaxInWeek) * 6;
-                    Console.WriteLine($"Table:{table} Points over {LessonsAll[i].Name} a week Added: {Math.Abs(LessonsAll[i].CountWeek - LessonsAll[i].MaxInWeek) * 6}");
+                    if (GlobalValues.DisplayInfo || show) Console.WriteLine($"Table:{table} {LessonsAll[i].Name} too low or too high a week Added: {Math.Abs(LessonsAll[i].CountWeek - LessonsAll[i].MaxInWeek) * 6}");
                 }
                 LessonsAll[i].CountWeek = 0;
             }
         }
 
-        public void FitnessAll()
+        public void FitnessAll(bool show = false)
         {
             for (int i = 0; i < GlobalValues.DefaultTableCount; i++)
             {
-                FitnessWeek(i);
-                Console.WriteLine();
+                FitnessWeek(i, show);
+                if (GlobalValues.DisplayInfo || show) Console.WriteLine();
 
                 int[] LessonsCount = new int[GlobalValues.WorkingDays];
 
@@ -166,17 +290,17 @@ namespace SI_DevSchedule
                 if (LessonsCount.Max() - LessonsCount.Min() > GlobalValues.MaxDiffrence)
                 {
                     Fitness[i] += (LessonsCount.Max() - LessonsCount.Min() - GlobalValues.MaxDiffrence) * 3;
-                    Console.WriteLine($"Table:{i} Points between certain limits Added: {(LessonsCount.Max() - LessonsCount.Min() - GlobalValues.MaxDiffrence) * 3}");
+                    if (GlobalValues.DisplayInfo || show) Console.WriteLine($"Table:{i} Difference bettwen days too high Points Added: {(LessonsCount.Max() - LessonsCount.Min() - GlobalValues.MaxDiffrence) * 3}");
                 }
 
                 if (LessonsCount.Min() == 0)
                 {
                     Fitness[i] += 12;
-                    Console.WriteLine($"Table:{i} has empty day");
+                    if (GlobalValues.DisplayInfo || show) Console.WriteLine($"Table:{i} has empty day");
                 }
             }
 
-            Console.WriteLine("\n\n\n\n");
+            if (GlobalValues.DisplayInfo || show) Console.WriteLine("\n\n\n\n");
         }
 
         public ScheduleInt Crossover(ScheduleInt partner)
@@ -218,7 +342,7 @@ namespace SI_DevSchedule
                     {
                         if (rnd.NextDouble() < GlobalValues.MutationRate)
                         {
-                            schedule[i, j, k] = rnd.Next(0, GlobalValues.Lessons.Count);
+                            schedule[i, j, k] = GlobalValues.Limits[j][i][rnd.Next(0, GlobalValues.Limits[j][i].Count)];
                         }
                     }
                 }
@@ -247,7 +371,7 @@ namespace SI_DevSchedule
                 foreach (var individual in Population)
                 {
                     individual.FitnessAll();
-                    Console.WriteLine(individual.Fitness.Sum(x => Convert.ToInt32(x)));
+                    if (GlobalValues.DisplayInfo) Console.WriteLine(individual.Fitness.Sum(x => Convert.ToInt32(x)));
                 }
 
                 Population = Population.OrderBy(ind => ind.Fitness.Sum()).ToList();

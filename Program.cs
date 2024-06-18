@@ -325,7 +325,8 @@ namespace SchedulePlanner
 
             GeneticAlgorithm ga = new GeneticAlgorithm();
             ScheduleInt bestSchedule = ga.Evolve();
-
+            Console.WriteLine("\n\nCurrent schedule");
+            bestSchedule.FitnessAll(true);
             bestSchedule.ShowSchedule();
 
 
