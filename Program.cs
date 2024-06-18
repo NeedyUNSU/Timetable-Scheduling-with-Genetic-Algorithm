@@ -320,6 +320,9 @@ namespace SchedulePlanner
 
             //optimizedSchedule.ShowSchedules();
 
+
+
+
             GeneticAlgorithm ga = new GeneticAlgorithm();
             ScheduleInt bestSchedule = ga.Evolve();
 
