@@ -10,27 +10,28 @@ namespace SI_DevSchedule
     public static class GlobalValues
     {
         public static List<LessonOne> Lessons = new List<LessonOne>()
-    {
-        new LessonOne("", 100, 10),        // 0
-        new LessonOne("Matematyka", 5, 2), // 1
-        new LessonOne("Polski", 5, 2),     // 2
-        new LessonOne("Biologia", 2, 1),   // 3
-        new LessonOne("Chemia", 2, 1),     // 4 
-        new LessonOne("Angielski", 3, 1),  // 5
-        new LessonOne("Historia", 2, 1),   // 6
-        new LessonOne("Geografia", 2, 1),  // 7
-        new LessonOne("WF", 4, 2),         // 8
-    };
-        // 
+        {
+            new LessonOne("", 100, 10),        // 0
+            new LessonOne("Matematyka", 5, 2), // 1
+            new LessonOne("Polski", 4, 2),     // 2
+            new LessonOne("Biologia", 2, 1),   // 3
+            new LessonOne("Chemia", 2, 1),     // 4 
+            new LessonOne("Angielski", 3, 1),  // 5
+            new LessonOne("Historia", 1, 1),   // 6
+            new LessonOne("Geografia", 2, 1),  // 7
+            new LessonOne("WF", 3, 2),         // 8
+        };
+
+
         public static int MaxDiffrence = 3;
 
         public static int LessonsInDay = 8;
         public static int WorkingDays = 5;
-        public static int DefaultTableCount = 1;
+        public static int DefaultTableCount = 15;
 
-        public static int PopulationSize = 1000;
+        public static int PopulationSize = 500;
         public static int Generations = 10;
-        public static double MutationRate = 0.3;
+        public static double MutationRate = 0.5;
 
         public static bool DisplayInfo = false;
 
@@ -127,69 +128,15 @@ namespace SI_DevSchedule
         public int[] Fitness { get; set; } = new int[GlobalValues.DefaultTableCount];
 
         public List<LessonOne> LessonsAll = GlobalValues.Lessons;
-
         public int[,,] schedule { get; set; } = new int[GlobalValues.LessonsInDay, GlobalValues.WorkingDays, GlobalValues.DefaultTableCount];
+
+        public int MinFitness { get; set; } = int.MaxValue;
+        public int[,] Minschedule { get; set; } = new int[GlobalValues.LessonsInDay, GlobalValues.WorkingDays];
+
 
         public void RandomSchedule()
         {
             Random rnd = new Random();
-
-            //List<int> less1 = new List<int>() { 0, 5, 7, 8 };
-            //List<int> less2 = new List<int>() { 0, 3, 5, 6, 8 };
-            //List<int> less3 = new List<int>() { 0, 1, 2, 3, 5, 6 };
-            //List<int> less4 = new List<int>() { 0, 1, 4 };
-            //List<int> less5 = new List<int>() { 0, 4 };
-            //List<int> less6 = new List<int>() { 0 };
-            //List<int> less7 = new List<int>() { 0 };
-            //List<int> less8 = new List<int>() { 0 };
-
-            //List<List<int>> day1 = new List<List<int>>() { less1, less2, less3, less4, less5, less6, less7, less8 };
-
-            //less1 = new List<int>() { 0, 8 };
-            //less2 = new List<int>() { 0, 3 };
-            //less3 = new List<int>() { 0, 3, 4 };
-            //less4 = new List<int>() { 0, 4 };
-            //less5 = new List<int>() { 0 };
-            //less6 = new List<int>() { 0 };
-            //less7 = new List<int>() { 0 };
-            //less8 = new List<int>() { 0 };
-
-            //List<List<int>> day2 = new List<List<int>>() { less1, less2, less3, less4, less5, less6, less7, less8 };
-
-            //less1 = new List<int>() { 0, 5, 7, 8 };
-            //less2 = new List<int>() { 0, 6, 8 };
-            //less3 = new List<int>() { 0, 2, 6, 8 };
-            //less4 = new List<int>() { 0, 1, 2, 8 };
-            //less5 = new List<int>() { 0, 1, 8 };
-            //less6 = new List<int>() { 0, 8 };
-            //less7 = new List<int>() { 0 };
-            //less8 = new List<int>() { 0 };
-
-            //List<List<int>> day3 = new List<List<int>>() { less1, less2, less3, less4, less5, less6, less7, less8 };
-
-            //less1 = new List<int>() { 0, 6, 7, 8 };
-            //less2 = new List<int>() { 0, 1, 3, 5, 6, 7, 8 };
-            //less3 = new List<int>() { 0, 1, 2 };
-            //less4 = new List<int>() { 0, 2 };
-            //less5 = new List<int>() { 0 };
-            //less6 = new List<int>() { 0 };
-            //less7 = new List<int>() { 0 };
-            //less8 = new List<int>() { 0 };
-
-            //List<List<int>> day4 = new List<List<int>>() { less1, less2, less3, less4, less5, less6, less7, less8 };
-
-            //less1 = new List<int>() { 0, 4, 5 };
-            //less2 = new List<int>() { 0, 2, 3, 4, 5 };
-            //less3 = new List<int>() { 0, 1, 2, 8 };
-            //less4 = new List<int>() { 0, 7, 8 };
-            //less5 = new List<int>() { 0, 7, 8 };
-            //less6 = new List<int>() { 0 };
-            //less7 = new List<int>() { 0 };
-            //less8 = new List<int>() { 0 };
-
-            //List<List<int>> day5 = new List<List<int>>() { less1, less2, less3, less4, less5, less6, less7, less8 };
-
-            //List<List<List<int>>> limits = new List<List<List<int>>>() { day1, day2, day3, day4, day5 };
 
             for (int i = 0; i < GlobalValues.LessonsInDay; i++)
                 for (int j = 0; j < GlobalValues.WorkingDays; j++)
@@ -214,6 +161,38 @@ namespace SI_DevSchedule
                 }
                 Console.WriteLine("\n\n\n");
             }
+        }
+
+        public void Min()
+        {
+            for (int k = 0; k < GlobalValues.DefaultTableCount; k++)
+            {
+                if (MinFitness > Fitness[k])
+                {
+                    for (int i = 0; i < GlobalValues.LessonsInDay; i++)
+                    {
+                        for (int j = 0; j < GlobalValues.WorkingDays; j++)
+                        {
+                            Minschedule[i, j] = schedule[i, j, k];
+                        }
+                    }
+                    MinFitness = Fitness[k];
+                }
+            }
+        }
+        public void ShowTrueSchedule()
+        {
+
+            Console.WriteLine($"\n{MinFitness/2}\n");
+            for (int i = 0; i < GlobalValues.LessonsInDay; i++)
+            {
+                for (int j = 0; j < GlobalValues.WorkingDays; j++)
+                {
+                    Console.Write($"{Minschedule[i, j]} {GlobalValues.Lessons[Minschedule[i, j]]} ".PadRight(15));
+                }
+                Console.WriteLine();
+            }
+            Console.WriteLine("\n\n");
         }
 
         private void FitnessDay(int day, int table, bool show = false)
@@ -353,6 +332,7 @@ namespace SI_DevSchedule
     public class GeneticAlgorithm
     {
         public List<ScheduleInt> Population { get; set; } = new List<ScheduleInt>();
+        public ScheduleInt bestInAllGenerations = new ScheduleInt();
 
         public GeneticAlgorithm()
         {
@@ -388,6 +368,22 @@ namespace SI_DevSchedule
 
                     child1.Mutate();
                     child2.Mutate();
+
+                    child1.FitnessAll();
+                    child2.FitnessAll();
+                    child1.Min();
+                    if (child1.MinFitness < bestInAllGenerations.MinFitness)
+                    {
+                        bestInAllGenerations.Minschedule = child1.Minschedule;
+                        bestInAllGenerations.MinFitness = child1.MinFitness;
+                    }
+
+                    child2.Min();
+                    if (child2.MinFitness < bestInAllGenerations.MinFitness)
+                    {
+                        bestInAllGenerations.Minschedule = child2.Minschedule;
+                        bestInAllGenerations.MinFitness = child2.MinFitness;
+                    }
 
                     newPopulation.Add(child1);
                     newPopulation.Add(child2);
